@@ -12,13 +12,15 @@
         <div class="container">
             <nav>
                 <img src="images/logo.png" alt="logo">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Work</a></li>
-                    <li><a href="#">Portfolio</a></li>
-                    <li><a href="#">Contact</a></li>
+                <ul id="sidemenu">
+                    <li><a href="#header">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <i class="fa-solid fa-xmark"onclick="closemenu()"></i>
                 </ul>
+                <i class="fa-solid fa-bars"onclick="openmenu()"></i>
             </nav>
             <div class="header-text">
                 <h1>Hi, I'm Sahaj Sharma</h1>
@@ -31,7 +33,7 @@
 
     <!-----About---->
 
-    <div class="about">
+    <div id="about">
         <div class="container">
             <div class="row">
                 <div class="about-col-1">
@@ -61,9 +63,11 @@
                     </div>
                     <div class="tab-contents"id="courses">
                         <ul>
-                            <li><span>july'23</span><br>UI/UX Design | Great Learning</li>
-                            <li><span>Apr'23</span><br>Introduction to Software Testing | Coursera</li>
                             <li><span>Feb'23</span><br>Java full stack Developer | CipherSchool</li>
+                            <li><span>Mar'23</span><br>Black-box and White-box testing | Coursera</li>
+                            <li><span>Apr'23</span><br>Introduction to Software Testing | Coursera</li>
+                            <li><span>Jul'23</span><br>UI/UX Design | Great Learning</li>
+                            <li><span>Jul'22</span><br>Data Structures and Algorithms Self-Paced Cpp | GeeksforGeeks</li>
                         </ul>
                     </div>
                 </div>
@@ -73,26 +77,26 @@
 
     <!--------------services------------->
 
-    <div class="services">
+    <div id="services">
         <div class="container">
             <h1 class="sub-title">My services</h1>
             <div class="services-list">
                 <div>
                     <i class="fa-solid fa-code"></i>
                     <h2>Web Developer</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores dolorum ipsa ipsam, impedit doloribus itaque .</p>
-                    <a href="#">Learn ore</a>
+                    <p>An experienced web developer skilled in front-end and back-end technologies, dedicated to building responsive, secure, and user-friendly websites that meet client needs and enhance online presence.</p>
+                    <a href="#">Learn more</a>
                 </div>
                 <div>
                     <i class="fa-brands fa-figma"></i>
                     <h2>UI/UX Design</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores dolorum ipsa ipsam, impedit doloribus itaque .</p>
+                    <p>An experienced UI/UX designer excelling in user research, wireframing, prototyping, and interaction design, committed to crafting intuitive digital experiences for business success.</p>
                     <a href="#">Learn more</a>
                 </div>
                 <div>
                     <i class="fa-brands fa-wordpress"></i>
                     <h2>WorldPress Web Design</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores dolorum ipsa ipsam, impedit doloribus itaque .</p>
+                    <p>An experienced WordPress developer skilled in theme customization, plugin development, and SEO, dedicated to creating top-notch, user-friendly websites that meet client goals.</p>
                     <a href="#">Learn more</a>
                 </div>
             </div>
@@ -101,7 +105,7 @@
 
     <!--------portfolio------->
 
-    <div class="portfolio">
+    <div id="portfolio">
         <div class="container">
             <h1 class="sub-title">My Work</h1>
             <div class="work-list">
@@ -125,7 +129,7 @@
                     <img src="images/work-3.png">
                     <div class="layer">
                         <h3>DataCoder</h3>
-                        <p> DataCoder is a leading platform that provides computer science resources and coding challenges for programmers and technology enthusiasts, along with interview and exam preparations for upcoming aspirants.</p>
+                        <p> DataCoder is E-leading website offers coding challenges, resources, interview prep, and tech support for programmers and aspirants.</p>
                         <a href="#"><i class="fa-solid fa-link"></i></a>
                     </div>
                 </div>
@@ -137,7 +141,7 @@
 
 <!--------------contact------------->
 
-<div class="contact">
+<div id="contact">
     <div class="container">
         <div class="row">
             <div class="contact-left">
@@ -153,12 +157,13 @@
                 <a href="images/My-CV.pdf" download class="btn btn2">Download CV</a>
             </div>
             <div class="contact-right">
-                <form>
+                <form name="submit-to-google-sheet">
                     <input type="text" name="Name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea type="message" row="6" placeholder="Your Massage"></textarea>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea type="Message" row="6" placeholder="Your Message"></textarea>
                     <button type="submit" class="btn btn2">Submit</button>
                 </form>
+                <span id="mesg"></span>
             </div>
         </div>
     </div>
@@ -182,8 +187,36 @@
             document.getElementById(tabname).classList.add("active-tab")
         }
 
-
     </script>
+    <script>
+        var sidemeu = document.getElementById("sidemenu");
+
+        function openmenu(){
+            sidemeu.style.right = "0";
+        }
+        function closemenu(){
+            sidemeu.style.right = "-200px";
+        }
+    </script>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzjrbIt2rv5j-lli7jOiBrgLcCEGxnD9N6EirKzjZGzLmZT3yCeL0SQfHG3dLHq5Nyg3A/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const mesg = document.getElementById("mesg")
+  
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            mesg.innerHTML ="Message sent successfully"
+            setTimeout(function(){
+                mesg.innerHTML = ""
+            },5000)
+            form.reset()
+        })
+        //.catch(error => console.error('Error!', error.message))
+    })
+  </script>
     
 </body>
 </html>
